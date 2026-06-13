@@ -1,0 +1,766 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #b8956a 0%, #9e7b56 50%, #7a5a3a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ========== صفحه جعبه (ورودی) ========== */
+.box-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #b8956a 0%, #9e7b56 50%, #7a5a3a 100%);
+    z-index: 100;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.box-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* ========== جعبه چوبی 3D ========== */
+.gift-box {
+    position: relative;
+    width: 360px;
+    height: 280px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.4));
+}
+
+.gift-box:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* ========== درب جعبه ========== */
+.box-lid {
+    position: absolute;
+    top: -85px;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    transform-origin: bottom center;
+    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 20;
+    transform-style: preserve-3d;
+}
+
+.box-lid.open {
+    transform: rotateX(-115deg) translateY(-15px);
+}
+
+.lid-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #a0724a, #8b5a38);
+    border-radius: 12px 12px 6px 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    border-bottom: 2px solid #6b4228;
+    z-index: 2;
+}
+
+.lid-front {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(145deg, #6b4228, #4a2a18);
+    border-radius: 0 0 6px 6px;
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+    z-index: 1;
+}
+
+.lid-wood-line-h {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%);
+    border-radius: 1px;
+    z-index: 3;
+}
+
+.lid-wood-line-v {
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 50%;
+    width: 2px;
+    background: rgba(0, 0, 0, 0.15);
+    transform: translateX(-50%);
+    border-radius: 1px;
+    z-index: 3;
+}
+
+.lid-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 12px;
+    background: linear-gradient(145deg, #8b5a38, #6b4228);
+    border-radius: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.lid-label {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    background: #e8dac8;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    z-index: 15;
+    border: 1px solid #8b5a38;
+    color: #8b5a38;
+}
+
+.lid-label::before {
+    content: '📦';
+    font-size: 22px;
+}
+
+/* ========== بدنه جعبه ========== */
+.box-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #8b5a38, #6b4228);
+    border-radius: 16px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35), inset 0 1px 3px rgba(255, 255, 255, 0.1);
+    z-index: 5;
+}
+
+.body-front {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(145deg, #5a3520, #3a2010);
+    border-radius: 0 0 16px 16px;
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+    z-index: 4;
+}
+
+.body-right {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 16px;
+    height: 100%;
+    background: linear-gradient(145deg, #5a3520, #3a2010);
+    border-radius: 0 16px 16px 0;
+    transform-origin: left center;
+    transform: rotateY(90deg);
+    z-index: 4;
+}
+
+.body-wood-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.1) 3px,
+        rgba(0, 0, 0, 0.1) 10px
+    );
+    border-radius: 16px;
+    z-index: 7;
+    pointer-events: none;
+}
+
+.body-wood-line-h {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    right: 15px;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.2);
+    transform: translateY(-50%);
+    border-radius: 2px;
+    z-index: 8;
+}
+
+.body-wood-line-v {
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 50%;
+    width: 3px;
+    background: rgba(0, 0, 0, 0.2);
+    transform: translateX(-50%);
+    border-radius: 2px;
+    z-index: 8;
+}
+
+.box-label {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #e8dac8;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    padding: 5px 15px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+/* ========== صفحه خاطرات ========== */
+.memories-screen {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    width: 100%;
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.memories-screen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== هدر ========== */
+.header {
+    text-align: center;
+    color: #e8dac8;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    animation: slideDown 0.6s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.header .subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+/* ========== شبکه خاطرات ========== */
+.memories-container {
+    width: 100%;
+    background: linear-gradient(145deg, #9e7b56, #7a5a3a);
+    border-radius: 28px;
+    padding: 25px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid #b8956a;
+}
+
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+/* ========== استایل کارت‌ها ========== */
+.memory-card {
+    background: linear-gradient(145deg, #fff8f0, #f0e6d6);
+    border-radius: 18px;
+    padding: 18px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(107, 66, 40, 0.2);
+    animation: fadeInCard 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* انیمیشن تپش قلب برای اولین کارت */
+.memory-card:first-child {
+    animation: fadeInCard 0.5s ease forwards, gentlePulse 2s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        border-color: #8b5a38;
+    }
+}
+
+.memory-card:nth-child(1) { animation-delay: 0.05s, 0s; }
+.memory-card:nth-child(2) { animation-delay: 0.1s; }
+.memory-card:nth-child(3) { animation-delay: 0.15s; }
+.memory-card:nth-child(4) { animation-delay: 0.2s; }
+.memory-card:nth-child(5) { animation-delay: 0.25s; }
+.memory-card:nth-child(6) { animation-delay: 0.3s; }
+.memory-card:nth-child(7) { animation-delay: 0.35s; }
+.memory-card:nth-child(8) { animation-delay: 0.4s; }
+.memory-card:nth-child(9) { animation-delay: 0.45s; }
+
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* افکت موج هنگام هاور */
+.memory-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(139, 90, 56, 0.15);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+    pointer-events: none;
+}
+
+.memory-card:hover::after {
+    width: 200%;
+    height: 200%;
+}
+
+/* خط زیر کارت هنگام هاور */
+.memory-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #8b5a38, #c49a6c);
+    transition: width 0.3s ease, left 0.3s ease;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+.memory-card:hover::before {
+    width: 80%;
+    left: 10%;
+}
+
+/* تکان خوردن آیکون هنگام هاور */
+.memory-card:hover .memory-icon {
+    animation: iconWiggle 0.5s ease;
+}
+
+@keyframes iconWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(8deg); }
+    75% { transform: rotate(-8deg); }
+}
+
+/* چشمک زدن آیکون اولین کارت */
+.memory-card:first-child .memory-icon {
+    animation: iconPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 0px rgba(139, 90, 56, 0);
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 8px rgba(139, 90, 56, 0.5);
+    }
+}
+
+.memory-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    border-color: #8b5a38;
+}
+
+.memory-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.memory-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #6b4228;
+    margin-bottom: 6px;
+}
+
+.memory-date {
+    font-size: 0.7rem;
+    color: #9e7b56;
+}
+
+/* ========== راهنمای کلیک برای موبایل ========== */
+.mobile-click-hint {
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: #e8dac8;
+    font-size: 0.75rem;
+    text-align: center;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: hintPulse 1.5s ease infinite;
+}
+
+@keyframes hintPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+}
+
+/* ========== فوتر ========== */
+.footer {
+    text-align: center;
+    color: #e8dac8;
+    font-size: 0.75rem;
+    padding: 10px;
+    opacity: 0.7;
+}
+
+/* ========== مودال ========== */
+.memory-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memory-modal.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+.modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    border-radius: 28px;
+    overflow: hidden;
+    animation: modalPop 0.4s ease;
+    direction: rtl;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    z-index: 10;
+    transition: 0.2s;
+}
+
+.modal-close:hover {
+    background: #6b4228;
+}
+
+.modal-image {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 3rem;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.modal-date {
+    display: inline-block;
+    background: #f0e6d6;
+    color: #6b4228;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.modal-content h2 {
+    font-size: 1.4rem;
+    color: #6b4228;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: #555;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.modal-footer {
+    border-top: 1px solid #f0e6d6;
+    padding-top: 15px;
+    color: #9e7b56;
+    font-size: 0.8rem;
+}
+
+/* ========== ریسپانسیو موبایل ========== */
+@media (max-width: 600px) {
+    .gift-box {
+        width: 280px;
+        height: 220px;
+    }
+    
+    .box-lid {
+        top: -70px;
+        height: 75px;
+    }
+    
+    .lid-handle {
+        width: 40px;
+        height: 10px;
+    }
+    
+    .lid-label {
+        width: 38px;
+        height: 38px;
+        bottom: -15px;
+    }
+    
+    .lid-label::before {
+        font-size: 18px;
+    }
+    
+    .box-label {
+        font-size: 0.7rem;
+        bottom: 12px;
+        padding: 4px 12px;
+    }
+    
+    /* گرید 2 ستونی در موبایل */
+    .memories-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        justify-items: center;
+        align-items: center;
+    }
+    
+    /* آخرین آیتم (نهمین خاطره) - وسط چین */
+    .memory-card:last-child {
+        grid-column: span 2;
+        justify-self: center;
+        width: 50%;
+        max-width: 180px;
+    }
+    
+    .memory-card {
+        width: 100%;
+        padding: 15px 8px;
+    }
+    
+    .memory-icon {
+        font-size: 2rem;
+    }
+    
+    .memory-title {
+        font-size: 0.8rem;
+    }
+    
+    .memory-date {
+        font-size: 0.6rem;
+    }
+    
+    .header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .header .subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .memories-container {
+        padding: 18px;
+    }
+    
+    .modal-image {
+        height: 500px;
+    }
+    
+    .modal-content {
+        padding: 18px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-content p {
+        font-size: 0.85rem;
+    }
+    
+    /* نمایش راهنما در موبایل */
+    .mobile-click-hint {
+        display: block;
+        width: 90%;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 450px) {
+    .memories-grid {
+        gap: 10px;
+    }
+    
+    .memory-card:last-child {
+        width: 60%;
+        max-width: 160px;
+    }
+    
+    .memory-icon {
+        font-size: 1.8rem;
+    }
+    
+    .memory-title {
+        font-size: 0.75rem;
+    }
+    
+    .memory-date {
+        font-size: 0.55rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .memory-card:last-child {
+        width: 70%;
+        max-width: 140px;
+    }
+}

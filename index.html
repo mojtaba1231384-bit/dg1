@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>جعبه خاطرات | گنجینه لحظه‌های ناب</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="box-screen" id="boxScreen">
+    <div class="box-container">
+        <div class="gift-box" id="giftBox">
+            <div class="box-lid" id="boxLid">
+                <div class="lid-top">
+                    <div class="lid-wood-line-h"></div>
+                    <div class="lid-wood-line-v"></div>
+                    <div class="lid-handle"></div>
+                </div>
+                <div class="lid-front"></div>
+                <div class="lid-label"></div>
+            </div>
+            <div class="box-body">
+                <div class="body-wood-line-h"></div>
+                <div class="body-wood-line-v"></div>
+                <div class="body-wood-pattern"></div>
+                <div class="box-label">گنجینه خاطرات</div>
+            </div>
+            <div class="body-front"></div>
+            <div class="body-right"></div>
+        </div>
+    </div>
+</div>
+
+<div class="memories-screen" id="memoriesScreen">
+    <div class="header">
+        <h1>📦 گنجینه خاطرات</h1>
+        <p class="subtitle">ارزشمندترین لحظه‌های زندگی</p>
+    </div>
+
+    <!-- متن راهنما فقط برای موبایل -->
+    <div class="mobile-click-hint" id="mobileHint">
+        میخای بدونی توی هرکدوم چیه؟کلیک کن😉
+    </div>
+
+    <div class="memories-container">
+        <div class="memories-grid" id="memoriesGrid"></div>
+    </div>
+
+    <div class="footer">
+        <p>هر خاطره یک گنج ارزشمند است... 📦</p>
+    </div>
+</div>
+
+<div class="memory-modal" id="memoryModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-image">
+            <img src="" alt="تصویر خاطره" id="modalImage">
+        </div>
+        <div class="modal-content">
+            <span class="modal-icon" id="modalIcon">📸</span>
+            <span class="modal-date" id="modalDate"></span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+            <div class="modal-footer">
+                <span>💝 این خاطره برای همیشه مال ماست</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
